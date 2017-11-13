@@ -1,0 +1,38 @@
+﻿@model SuppliersModel
+@{
+    ViewData["Title"] = "Suppliers";
+}
+
+<h2>@Model.Type</h2>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Parts
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var supplier in Model.Suppliers)
+        {
+            <tr>
+                <td>
+                    @supplier.Id
+                </td>
+                <td>
+                    @supplier.Name
+                </td>
+                <td>
+                    @supplier.Parts
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
