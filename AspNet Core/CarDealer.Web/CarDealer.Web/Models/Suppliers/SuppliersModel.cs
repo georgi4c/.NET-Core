@@ -10,6 +10,6 @@ namespace CarDealer.Web.Models.Suppliers
     {
         public string Type { get; set; }
 
-        public List<SupplierModel> Suppliers { get; set; }
+        public List<SupplierListingModel> Suppliers { get; set; }
     }
 }

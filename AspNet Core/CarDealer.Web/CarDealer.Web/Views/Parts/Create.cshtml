@@ -1,14 +1,13 @@
-﻿@model CustomerFormModel
-
+﻿@model PartFormModel
 @{
     ViewData["Title"] = "Create";
 }
 
-<h2>Add customer</h2>
+<h2>@ViewData["Title"]</h2>
 
 <div class="row">
     <div class="col-md-4">
-        @Html.Partial("_CustomerForm", Model)
+        @Html.Partial("_PartForm", Model)
     </div>
 </div>
 

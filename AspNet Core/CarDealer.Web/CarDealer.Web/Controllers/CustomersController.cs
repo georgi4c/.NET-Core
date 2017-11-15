@@ -20,6 +20,49 @@ namespace CarDealer.Web.Controllers
             this.customers = customers;
         }
 
+        [Route(nameof(Edit) + "/{id}")]
+        public IActionResult Edit(int id)
+        {
+            var customer = this.customers.ById(id);
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            return this.View(new CustomerFormModel
+            {
+                Name = customer.Name,
+                BirthDate = customer.BirthDate,
+                IsYoungDriver = customer.IsYoungDriver
+            });
+        }
+
+        [HttpPost]
+        [Route(nameof(Edit) + "/{id}")]
+        public IActionResult Edit(int id, CustomerFormModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var customerExists = this.customers.Exists(id);
+
+            if (!customerExists)
+            {
+                return NotFound();
+            }
+
+            this.customers.Edit(
+                id,
+                model.Name,
+                model.BirthDate,
+                model.IsYoungDriver);
+
+            return RedirectToAction(nameof(All), new { order = OrderDirection.Ascending });
+        }
+
         [Route("all/{order}")]
         public IActionResult All(string order)
         {
@@ -45,7 +88,7 @@ namespace CarDealer.Web.Controllers
 
         [HttpPost]
         [Route(nameof(Create))]
-        public IActionResult Create(CreateCustomerModel model)
+        public IActionResult Create(CustomerFormModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -57,7 +100,7 @@ namespace CarDealer.Web.Controllers
                 model.BirthDate,
                 model.IsYoungDriver);
 
-            return RedirectToAction(nameof(All), new { oreder = OrderDirection.Ascending});
+            return RedirectToAction(nameof(All), new { order = OrderDirection.Ascending});
         }
 
     }

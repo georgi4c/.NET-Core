@@ -18,6 +18,7 @@ namespace CarDealer.Services.Implementations
         public IEnumerable<SaleListModel> All()
             => this.db
             .Sales
+            .OrderByDescending(s => s.Id)
             .Select(s => new SaleListModel
             {
                 Id = s.Id,

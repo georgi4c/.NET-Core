@@ -3,6 +3,7 @@ using CarDealer.Data;
 using CarDealer.Services.Models;
 using System;
 using System.Linq;
+using CarDealer.Services.Models.Suppliers;
 
 namespace CarDealer.Services
 {
@@ -15,11 +16,23 @@ namespace CarDealer.Services
             this.db = db;
         }
 
-        public List<SupplierModel> All(bool isImporter)
+        public IEnumerable<SupplierModel> All()
+            => this.db
+                .Suppliers
+            .OrderBy(s => s.Name)
+            .Select(s => new SupplierModel
+            {
+                Id = s.Id,
+                Name = s.Name
+            })
+            .ToList();
+
+        public List<SupplierListingModel> AllListings(bool isImporter)
         {
             return db.Suppliers
+                .OrderByDescending(s => s.Id)
                 .Where(s => s.IsImporter == isImporter)
-                .Select(s => new SupplierModel
+                .Select(s => new SupplierListingModel
                 {
                     Id = s.Id,
                     Name = s.Name,

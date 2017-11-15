@@ -62,11 +62,44 @@ namespace CarDealer.Services.Implementations
             return customersQuery
                 .Select(c => new CustomerModel
                 {
+                    Id = c.Id,
                     Name = c.Name,
                     BirthDate = c.BirthDate,
                     IsYoungDriver = c.IsYoungDriver
                 })
                 .ToList();
         }
+
+        public CustomerModel ById(int id)
+            => this.db
+                .Customers
+                .Where(c => c.Id == id)
+                .Select(c => new CustomerModel
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    BirthDate = c.BirthDate,
+                    IsYoungDriver = c.IsYoungDriver
+                })
+                .FirstOrDefault();
+
+        public void Edit(int id, string name, DateTime birthDate, bool isYoungDriver)
+        {
+            var existingCustomer = this.db.Customers.Find(id);
+
+            if (existingCustomer == null)
+            {
+                return;
+            }
+
+            existingCustomer.Name = name;
+            existingCustomer.BirthDate = birthDate;
+            existingCustomer.IsYoungDriver = isYoungDriver;
+
+            this.db.SaveChanges();
+        }
+
+        public bool Exists(int id)
+            => this.db.Customers.Any(c => c.Id == id);
     }
 }

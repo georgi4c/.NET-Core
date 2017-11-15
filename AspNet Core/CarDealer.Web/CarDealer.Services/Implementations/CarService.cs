@@ -30,8 +30,10 @@ namespace CarDealer.Services
 
         public List<CarWithParts> WithParts()
         {
-            return db.Cars.Select(c => new CarWithParts
-            {
+            return db.Cars
+                .OrderByDescending(c => c.Id)
+                .Select(c => new CarWithParts
+                {
                 Model = c.Model,
                 Make = c.Make,
                 TravelledDistance = c.TravelledDistance,
