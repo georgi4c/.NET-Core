@@ -4,6 +4,8 @@
     ViewData["Title"] = "WithParts";
 }
 
+<a href="/cars/create" class="btn btn-primary">Add Car</a>
+
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
@@ -26,7 +28,7 @@
         {
             <tr>
                 <td>
-                    @car.Make
+                    <a href="/cars/@car.Make">@car.Make</a>
                 </td>
                 <td>
                     @car.Model

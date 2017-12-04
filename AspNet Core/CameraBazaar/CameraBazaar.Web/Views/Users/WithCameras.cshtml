@@ -1,0 +1,34 @@
+﻿@model UserWithCamerasModel
+
+@{ 
+    var camerasByQuantity = Model.Cameras.Select(c => c.Quantity);
+}
+
+<div class="row">
+    <h3>
+        @Model.UserName
+        @if (Model.UserName == User.Identity.Name)
+        {
+            <a href="/users/edit/@Model.Id" class="btn btn-warning">Edit Profile</a>
+        }
+</h3>
+</div>
+
+<div class="row">
+    <p><b>Email :</b></p>
+    <a href="#">@Model.Email</a>
+</div>
+
+<div class="row">
+    <p>Phone :</p>
+    <p><b>@Model.Phone</b></p>
+</div>
+
+<div class="row">
+    <p>Cameras :</p>
+    <p><b>@(camerasByQuantity.Where(c => c != 0).Count()) in stock / @(camerasByQuantity.Where(c => c == 0).Count()) out of stock</b></p>
+</div>
+
+<h3>Cameras:</h3>
+
+@Html.Partial("/Views/Cameras/_CamerasForm.cshtml", Model.Cameras)

@@ -1,0 +1,24 @@
+﻿@model IEnumerable<CameraMinifiedModel>
+
+<div class="container">
+    @foreach (var camera in Model)
+    {
+        <div class="row table-bordered">
+            <div class="col-lg-4">
+                <img width="200" height="200" class="img-responsive" src="@camera.ImageUrl" alt="Camera image" />
+            </div>
+
+            <div class="col-lg-5">
+                <h3>@camera.Make @camera.Model</h3>
+                <br />
+                <a href="/cameras/details/@camera.Id">Details</a>
+            </div>
+
+            <div class="col-lg-3">
+                <h3>$@camera.Price</h3>
+                <h3 class="@(camera.Quantity > 0 ? "text-success" : "text-danger")">@(camera.Quantity > 0 ? "IN STOCK" : "OUT OF STOCK")</h3>
+            </div>
+        </div>
+        <br />
+    }
+</div>

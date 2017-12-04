@@ -1,0 +1,24 @@
+﻿@model CameraFullModel
+
+<h1>Camera Details</h1>
+<div class="row">
+    <h3>
+        @Model.Make  @Model.Model  - $@Model.Price - <span class="@(Model.Quantity > 0 ? "text-success" : "text-danger")">@(Model.Quantity > 0 ? "IN STOCK" : "OUT OF STOCK")</span>
+    </h3>
+</div>
+<h3><a href="/users/withcameras/@Model.UserId">@Model.UserName</a></h3>
+
+<img src="@Model.ImageUrl" width="300" height="300" alt="Camera image" class="img-responsive" />
+
+<p><b>Is Full Frame:</b> @Model.IsFullFrame</p>
+<p><b>Min Shutter Speed:</b> @Model.MinShutterSpeed"</p>
+<p><b>Max Shutter Speed:</b> 1/@Model.MaxShutterSpeed</p>
+<p><b>Min ISO:</b> @Model.MinISO</p>
+<p><b>Max ISO:</b> @Model.MaxISO</p>
+<p><b>Video Resolution:</b> @Model.VideoResolution</p>
+<p><b>Light Metering:</b></p>
+@foreach(var lightMetering in Model.LightMeterings)
+{
+    <p>- @lightMetering</p>
+}
+<p><b>Description:</b> @Model.Description</p>
